@@ -33,6 +33,13 @@ If code changes are made to the project we would need to rebuild the docker imag
 docker-compose build --no-cache
 ```
 
+Once running the API will be available on [http://localhost:5000](http://localhost:5000)
+
+Use: 
+* /start - to start the biscuit machine
+* /pause - to pause the biscuit machine
+* /stop - to stop the biscuit machine
+
 ## Future ideas for features and improvements
 
 * `Improvement:` Unit tests needs to be written.
