@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+  biscuit_machine_controller_api:
+    build:
+      context: ./
+      dockerfile: biscuit_machine_controller/Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - biscuit_machine_simulator
+    container_name: biscuit_machine_controller_api
+    env_file:
+      - configuration_variables.env
+    stdin_open: true
+    tty: true
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  device_simulator:
+    build:
+      context: ./
+      dockerfile: ./device_simulator/Dockerfile
+    networks:
+      - biscuit_machine_simulator
+    container_name: device_simulator
+    env_file:
+      - configuration_variables.env
+    stdin_open: true
+    tty: true
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      - biscuit_machine_simulator
+    container_name: redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+networks:
+  biscuit_machine_simulator:
+    driver: bridge
