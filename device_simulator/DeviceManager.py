@@ -16,6 +16,3 @@ class DeviceManager:
             thread = threading.Thread(target=device.run, args=(), daemon=True)
             threads.append(thread)
             thread.start()
-
-        for index, thread in enumerate(threads):
-            thread.join()

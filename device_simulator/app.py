@@ -1,4 +1,6 @@
 import os
+import time
+import threading
 
 from machine_devices import Extruder, Motor, Oven, Stamper, Switch
 from DeviceManager import DeviceManager
@@ -53,3 +55,8 @@ if __name__ == "__main__":
     # Start the machine components
     print('Starting the devices...')
     device_manager.start_devices()
+
+    # We use daemon threads for our devices but for them to work we need to keep the main thread alive
+    # This will stop on SIGTERM and the daemon threads will be destroyed
+    while threading.active_count() > 0:
+        time.sleep(0.2)

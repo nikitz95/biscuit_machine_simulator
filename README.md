@@ -45,6 +45,7 @@ Use:
 * `Improvement:` Unit tests needs to be written.
 * `Improvement:` We can pass the project code inside the containers as volumes instead of making a COPY. This will lower the number of time we need to rebuild the project when we make changes.
 * `Improvement:` Some classes can be made Singletons.
+* `Improvement:` Implement better SIGTERM handling for the threads in our device_simulator. 
 * `Improvement:` Instead of simulating the pins and communication with Redis key value store we can use the Pub/Sub feature for more dynamic messaging.
 * `Future feature:` We can introduce /state endpoint to show current state of the machine and it's components.
 * `Future feature:` Flask-SocketIO can be added to the project to enable more real time communication with our controller. Changes to our machine state can be emitted/broadcasted to all connected clients.

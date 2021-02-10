@@ -71,15 +71,9 @@ if __name__ == '__main__':
         SwitchController(machine_status, pulse_transmitter)]
 
 
-    # Start
-    threads = list()
+    # Start controlling the machine
     thread = threading.Thread(target=control_the_machine, args=(), daemon=True)
-    threads.append(thread)
     thread.start()
 
-    thread = threading.Thread(target=app.run, kwargs={'host': Config.get_config_variable('app_host'), 'port': Config.get_config_variable('app_port')}, daemon=True)
-    threads.append(thread)
-    thread.start()
-
-    for index, thread in enumerate(threads):
-        thread.join()
+    # Run the API
+    app.run(host=Config.get_config_variable('app_host'), port=Config.get_config_variable('app_port'))
